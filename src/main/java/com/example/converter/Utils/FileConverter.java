@@ -18,7 +18,6 @@ public class FileConverter {
     private static List<String> dbfFiles = new ArrayList<>();
 
     public static void convertFiles() {
-        System.out.println("test");
         listDbcFiles();
 
         if (!dbcFiles.isEmpty()) {
@@ -27,26 +26,18 @@ public class FileConverter {
         }
     }
 
-    private static void deleteDbfCsvFiles() {
-        // Implementation of your Go function deleteDbfCsvFiles()
-        // ...
-    }
-
     private static void listDbcFiles() {
         try {
-            // Construct the full path to the DBC directory
+
             String dbcDirectoryPath = System.getProperty("user.dir") + File.separator + "dbc-files";
 
-            // Create a File object for the DBC directory
             File dbcDirectory = new File(dbcDirectoryPath);
 
-            // Check if the DBC directory exists
             if (!dbcDirectory.exists()) {
                 System.out.println("The DBC directory '" + dbcDirectoryPath + "' does not exist.");
                 return;
             }
 
-            // List all files in the DBC directory with the ".dbc" extension
             File[] dbcFilesArray = dbcDirectory.listFiles((dir, name) -> name.toLowerCase().endsWith(".dbc"));
 
             if (dbcFilesArray != null && dbcFilesArray.length > 0) {
@@ -99,7 +90,6 @@ public class FileConverter {
             try {
                 CsvWriter csvWriter = new CsvWriter(csvFilePath);
 
-                // Read DBF file and write to CSV
                 readDbfAndWriteToCsv("dbc-files" + File.separator + dbfFileName, csvWriter);
 
                 System.out.println(dbfFileName + ": File converted to CSV.");
@@ -111,7 +101,7 @@ public class FileConverter {
 
     private static void readDbfAndWriteToCsv(String dbfFilePath, CsvWriter csvWriter) {
         try (DBFReader dbfReader = new DBFReader(new FileInputStream(dbfFilePath))) {
-            // Get the column names (headers) from the DBF file
+
             int numFields = dbfReader.getFieldCount();
             String[] headers = new String[numFields];
 
@@ -121,7 +111,6 @@ public class FileConverter {
 
             csvWriter.writeRecord(headers);
 
-            // Read and write each record to the CSV file
             Object[] row;
             while ((row = dbfReader.nextRecord()) != null) {
                 String[] record = new String[row.length];
