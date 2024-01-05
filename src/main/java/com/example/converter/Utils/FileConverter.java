@@ -79,10 +79,6 @@ public class FileConverter {
         }
     }
 
-
-
-// ...
-
     private static void dbfToCsv() {
         for (String dbfFileName : dbfFiles) {
             String csvFilePath = Paths.get("dbc-files", Paths.get(dbfFileName).getFileName().toString().replace(".dbf", ".csv")).toString();
